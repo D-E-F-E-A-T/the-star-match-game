@@ -21,6 +21,31 @@ const StarMatch = () => {
       }
       return 'available';
     }
+
+    const onNumberClick = (number, currentStatus) => {
+      // currentState => newState
+      if (currentStatus == 'used') {
+        return;
+      }
+      // candidateNums
+      const newCandidateNums = 
+        currentStatus === 'available'
+          ? candidateNums.concat(number)
+          : candidateNums.filter(cn => cn !== number);
+
+      if (utils.sum(newCandidateNums) !== stars) {
+        setCandidateNums(newCandidateNums);
+      } else {
+        const newAvailableNums = availableNums.filter(
+          n => !newCandidateNums.includes(n)
+        );
+        // redraw stars(from stars' available)
+        setStars(utils.randomSumIn(newAvailableNums, 9));
+        setAvailableNums(newAvailableNums);
+        setCandidateNums([]);
+      }
+
+    }
     
     return (
         <Game>
@@ -38,6 +63,7 @@ const StarMatch = () => {
                           number={number}
                           status={numberStatus(number)}
                           colors={colors}
+                          onClick={onNumberClick}
                         />
                     )}
                 </NumberContainer>
