@@ -4,6 +4,7 @@ import { StarsContainer,NumberContainer,Game,Body } from './styles';
 
 import PlayNumber from './../PlayNumber/index';
 import StarDisplay from '../StarDisplay/index';
+import PlayAgain from './../PlayAgain/index';
 
 const StarMatch = () => {
     const [stars, setStars] = useState(utils.random(1, 9));
@@ -11,6 +12,13 @@ const StarMatch = () => {
     const [candidateNums, setCandidateNums] = useState([])
 
     const candidatesAreWrong = utils.sum(candidateNums) > stars;
+    const gameIsDone = availableNums.length;
+
+    const resetGame = () => {
+      setStars(utils.random(1, 9));
+      setAvailableNums(utils.range(1, 9));
+      setCandidateNums([]);
+    };
     
     const numberStatus = (number) => {
       if (!availableNums.includes(number)) {
@@ -54,7 +62,10 @@ const StarMatch = () => {
             </div>
             <Body>
                 <StarsContainer>
-                    <StarDisplay count={stars} utils={utils.range} />
+                    {gameIsDone === 0 ?
+                      (<PlayAgain onClick={resetGame} content="Play Again" />) :
+                      (<StarDisplay count={stars} utils={utils.range} />)
+                    }
                 </StarsContainer>
                 <NumberContainer>
                     {utils.range(1, 9).map(number => 
