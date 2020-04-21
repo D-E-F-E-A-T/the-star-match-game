@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { StarsContainer,NumberContainer,GameContainer,Body } from './styles';
+import { StarsContainer,NumberContainer,GameContainer,Body,Timer, Help } from './styles';
 
 import PlayNumber from '../PlayNumber/index';
 import StarDisplay from '../StarDisplay/index';
@@ -72,9 +72,9 @@ const Game = (props) => {
     
     return (
         <GameContainer>
-            <div className="help">
+            <Help>
             Pick 1 or more numbers that sumimport GlobalStyle from './styles'; to the number of stars
-            </div>
+            </Help>
             <Body>
                 <StarsContainer>
                     {gameStatus !== 'active' ?
@@ -98,7 +98,7 @@ const Game = (props) => {
                     )}
                 </NumberContainer>
             </Body>
-            <div className="timer">Time Remaining: {secondsLeft}</div>
+            <Timer>Time Remaining: {secondsLeft}</Timer>
         </GameContainer>
     );
   };
