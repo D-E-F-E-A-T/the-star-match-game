@@ -3,10 +3,24 @@ import React, { useState } from 'react';
 import { StarsContainer,NumberContainer,Game,Body } from './styles';
 
 import PlayNumber from './../PlayNumber/index';
-import PlayStar from './../PlayStar/index';
+import StarDisplay from '../StarDisplay/index';
 
 const StarMatch = () => {
     const [stars, setStars] = useState(utils.random(1, 9));
+    const [availableNums, setAvailableNums] = useState(utils.range(1, 9));
+    const [candidateNums, setCandidateNums] = useState([])
+
+    const candidatesAreWrong = utils.sum(candidateNums) > stars;
+    
+    const numberStatus = (number) => {
+      if (!availableNums.includes(number)) {
+        return 'used';
+      }
+      if (candidateNums.includes(number)) {
+        return candidatesAreWrong ? 'wrong' : 'candidate'     
+      }
+      return 'available';
+    }
     
     return (
         <Game>
@@ -15,11 +29,16 @@ const StarMatch = () => {
             </div>
             <Body>
                 <StarsContainer>
-                    
+                    <StarDisplay count={stars} utils={utils.range} />
                 </StarsContainer>
                 <NumberContainer>
                     {utils.range(1, 9).map(number => 
-                        <PlayNumber key={number} number={number}/>
+                        <PlayNumber 
+                          key={number} 
+                          number={number}
+                          status={numberStatus(number)}
+                          colors={colors}
+                        />
                     )}
                 </NumberContainer>
             </Body>
