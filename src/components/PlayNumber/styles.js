@@ -12,6 +12,6 @@ export const NumberItem = styled.button`
 
     &:hover, &:focus {
         outline: none;
-    border: thin solid #ddd;
+        border: thin solid #ddd;
     }
 `;
