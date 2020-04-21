@@ -1,10 +1,13 @@
 import React from 'react';
 
-import { GameDone } from './style';
+import { GameDone, Message } from './style';
 
 const PlayAgain = props => {
     return(
         <GameDone>
+            <Message style={{ color: props.gameStatus === 'lost' ? 'red' : 'green' }} >
+                {props.gameStatus === 'lost' ? 'Game Over' : 'Great Work!' }
+            </Message>
             <button onClick={props.onClick}>{props.content}</button>
         </GameDone>
     );
